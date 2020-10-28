@@ -1,0 +1,19 @@
+public class Prueba { 
+
+public String id : 
+public int time = 9 :
+
+public static void main {
+
+public Metodo() {
+ String mensaje:
+}
+
+   If() { 
+        else(){}
+      }
+  }
+}:
+
+
+
