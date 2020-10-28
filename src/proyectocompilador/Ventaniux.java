@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+/*
+@author Tema theChulis
+*/
 package proyectocompilador;
 
 import java.io.File;
@@ -12,6 +15,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -201,11 +205,12 @@ public class Ventaniux extends javax.swing.JFrame {
 
     private void abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirActionPerformed
         Scanner analiza = null, analiza2 = null;
+  
+        try {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(fileChooser);
         txtArchivoSeleccionado.setVisible(true);
         txtArchivoSeleccionado.setText("Archivo seleccionado: " + fileChooser.getSelectedFile().getName());
-        try {
         rutaArchivo = fileChooser.getSelectedFile().getAbsolutePath(); 
         File f = new File(rutaArchivo);       
         analiza = new Scanner(f);
@@ -215,7 +220,7 @@ public class Ventaniux extends javax.swing.JFrame {
             
         }
         while (analiza2.hasNext()) {
-            SalidaCodig += SalidaToken + "\n";
+            SalidaCodig += analiza2.nextLine() + "\n";
         }
               
            } 
@@ -223,7 +228,7 @@ public class Ventaniux extends javax.swing.JFrame {
                SalidaConsola.setText(SalidaConsola.getText() + "\n" + e.getMessage());
            } 
            catch (NullPointerException e) {
-               SalidaConsola.setText(SalidaConsola.getText() + "\n" + e.getMessage() + "No se seleccionó el archivo");
+               SalidaConsola.setText(SalidaConsola.getText() + "\n" +  "No se seleccionó el archivo");
            } 
            catch (Exception e) {
                SalidaConsola.setText(SalidaConsola.getText() + "\n" + e.getMessage());
@@ -250,6 +255,9 @@ public class Ventaniux extends javax.swing.JFrame {
         SalidaConsola.setText("");
         SalidaCodigo.setText("");
         txtArchivoSeleccionado.setText("");
+        rutaArchivo="";
+    SalidaCodig="";
+    SalidaToken="";
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void EjecutaSalidaTokens(String Token){
