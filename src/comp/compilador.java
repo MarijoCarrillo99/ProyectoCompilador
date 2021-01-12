@@ -43,20 +43,30 @@ public class compilador implements compiladorConstants {
   final public void VariablesGlobales() throws ParseException {
     jj_consume_token(PR_PUB);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case TIPDAT_STR:
-      jj_consume_token(TIPDAT_STR);
-      break;
-    case TIPDAT_CHAR:
-      jj_consume_token(TIPDAT_CHAR);
-      break;
     case TIPDAT_INT:
-      jj_consume_token(TIPDAT_INT);
-      break;
-    case TIPDAT_DOU:
-      jj_consume_token(TIPDAT_DOU);
+    case TIPDAT_LONG:
+    case TIPDAT_BYTE:
+      DeclaraEnteros();
       break;
     case TIPDAT_FLO:
-      jj_consume_token(TIPDAT_FLO);
+    case TIPDAT_BOOLE:
+      DeclaraFlotantes();
+      break;
+    case TIPDAT_STR:
+      DeclaraCadenas();
+      break;
+    default:
+      jj_la1[1] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    Body();
+  }
+
+  final public void DeclaraEnteros() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case TIPDAT_INT:
+      jj_consume_token(TIPDAT_INT);
       break;
     case TIPDAT_LONG:
       jj_consume_token(TIPDAT_LONG);
@@ -64,30 +74,91 @@ public class compilador implements compiladorConstants {
     case TIPDAT_BYTE:
       jj_consume_token(TIPDAT_BYTE);
       break;
-    case TIPDAT_BOOLE:
-      jj_consume_token(TIPDAT_BOOLE);
-      break;
     default:
-      jj_la1[1] = jj_gen;
+      jj_la1[2] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
     jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_ASIG);
+    jj_consume_token(NUMERO);
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case OTROS_ASIG:
+      case OTROS_COMA:
         ;
         break;
       default:
-        jj_la1[2] = jj_gen;
+        jj_la1[3] = jj_gen;
         break label_1;
       }
+      jj_consume_token(OTROS_COMA);
+      jj_consume_token(IDENTIFICADOR);
       jj_consume_token(OTROS_ASIG);
       jj_consume_token(NUMERO);
     }
     jj_consume_token(OTROS_DOSPUN);
-    Body();
+  }
+
+  final public void DeclaraFlotantes() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case TIPDAT_FLO:
+      jj_consume_token(TIPDAT_FLO);
+      break;
+    case TIPDAT_BOOLE:
+      jj_consume_token(TIPDAT_BOOLE);
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_ASIG);
+    jj_consume_token(NUMBER);
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OTROS_COMA:
+        ;
+        break;
+      default:
+        jj_la1[5] = jj_gen;
+        break label_2;
+      }
+      jj_consume_token(OTROS_COMA);
+      jj_consume_token(IDENTIFICADOR);
+      jj_consume_token(OTROS_ASIG);
+      jj_consume_token(NUMBER);
+    }
+    jj_consume_token(OTROS_DOSPUN);
+  }
+
+  final public void DeclaraCadenas() throws ParseException {
+    jj_consume_token(TIPDAT_STR);
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_ASIG);
+    jj_consume_token(OTROS_COMDOB);
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_COMDOB);
+    label_3:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OTROS_COMA:
+        ;
+        break;
+      default:
+        jj_la1[6] = jj_gen;
+        break label_3;
+      }
+      jj_consume_token(OTROS_COMA);
+      jj_consume_token(IDENTIFICADOR);
+      jj_consume_token(OTROS_ASIG);
+      jj_consume_token(OTROS_COMDOB);
+      jj_consume_token(IDENTIFICADOR);
+      jj_consume_token(OTROS_COMDOB);
+    }
+    jj_consume_token(OTROS_DOSPUN);
   }
 
   final public void EstructuraMetodo() throws ParseException {
@@ -125,7 +196,7 @@ public class compilador implements compiladorConstants {
       jj_consume_token(TIPDAT_BOOLE);
       break;
     default:
-      jj_la1[3] = jj_gen;
+      jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -134,22 +205,32 @@ public class compilador implements compiladorConstants {
   }
 
   final public void Sentencias() throws ParseException {
-    label_2:
+    label_4:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case PR_SYS:
       case PR_PUB:
       case CICL_WHI:
       case CICL_FOR:
       case CONDI_IF:
+      case OTROS_PARENABRIR:
+      case PrintInt:
+      case PrintString:
+      case PrintBoolean:
+      case PrintChar:
+      case PrintFloat:
         ;
         break;
       default:
-        jj_la1[4] = jj_gen;
-        break label_2;
+        jj_la1[8] = jj_gen;
+        break label_4;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case CONDI_IF:
         SentenciaIf();
+        break;
+      case PR_SYS:
+        Imprimir();
         break;
       case CICL_WHI:
         Ciclo_While();
@@ -160,8 +241,18 @@ public class compilador implements compiladorConstants {
       case PR_PUB:
         EstructuraMetodo();
         break;
+      case OTROS_PARENABRIR:
+        ExpresionesAritmeticas();
+        break;
+      case PrintInt:
+      case PrintString:
+      case PrintBoolean:
+      case PrintChar:
+      case PrintFloat:
+        ImprimirValores();
+        break;
       default:
-        jj_la1[5] = jj_gen;
+        jj_la1[9] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -171,10 +262,161 @@ public class compilador implements compiladorConstants {
   final public void SentenciaIf() throws ParseException {
     jj_consume_token(CONDI_IF);
     jj_consume_token(OTROS_PARENABRIR);
+    AceptaBooleanos();
     jj_consume_token(OTROS_PARENCIERRE);
     jj_consume_token(OTROS_LLAVEINI);
-    Sino();
+    Sentencias();
     jj_consume_token(OTROS_LLAVEFIN);
+    label_5:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case CONDI_ELSE:
+        ;
+        break;
+      default:
+        jj_la1[10] = jj_gen;
+        break label_5;
+      }
+      Sino();
+    }
+  }
+
+  final public void AceptaBooleanos() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IDENTIFICADOR:
+      jj_consume_token(IDENTIFICADOR);
+      break;
+    case NUMERO:
+      jj_consume_token(NUMERO);
+      break;
+    default:
+      jj_la1[11] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case OPE_MENOR:
+      jj_consume_token(OPE_MENOR);
+      break;
+    case OPE_MAYOR:
+      jj_consume_token(OPE_MAYOR);
+      break;
+    case OPE_DOBLEIGUAL:
+      jj_consume_token(OPE_DOBLEIGUAL);
+      break;
+    case OPE_MENORIGUAL:
+      jj_consume_token(OPE_MENORIGUAL);
+      break;
+    case OPE_MAYORIGUAL:
+      jj_consume_token(OPE_MAYORIGUAL);
+      break;
+    case OPE_DIFERENTE:
+      jj_consume_token(OPE_DIFERENTE);
+      break;
+    case OPE_AND:
+      jj_consume_token(OPE_AND);
+      break;
+    case OPE_OR:
+      jj_consume_token(OPE_OR);
+      break;
+    default:
+      jj_la1[12] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IDENTIFICADOR:
+      jj_consume_token(IDENTIFICADOR);
+      break;
+    case NUMERO:
+      jj_consume_token(NUMERO);
+      break;
+    case NUMBER:
+      jj_consume_token(NUMBER);
+      break;
+    default:
+      jj_la1[13] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    label_6:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPE_AND:
+      case OPE_OR:
+        ;
+        break;
+      default:
+        jj_la1[14] = jj_gen;
+        break label_6;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPE_AND:
+        jj_consume_token(OPE_AND);
+        break;
+      case OPE_OR:
+        jj_consume_token(OPE_OR);
+        break;
+      default:
+        jj_la1[15] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIFICADOR:
+        jj_consume_token(IDENTIFICADOR);
+        break;
+      case NUMERO:
+        jj_consume_token(NUMERO);
+        break;
+      default:
+        jj_la1[16] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPE_MENOR:
+        jj_consume_token(OPE_MENOR);
+        break;
+      case OPE_MAYOR:
+        jj_consume_token(OPE_MAYOR);
+        break;
+      case OPE_DOBLEIGUAL:
+        jj_consume_token(OPE_DOBLEIGUAL);
+        break;
+      case OPE_MENORIGUAL:
+        jj_consume_token(OPE_MENORIGUAL);
+        break;
+      case OPE_MAYORIGUAL:
+        jj_consume_token(OPE_MAYORIGUAL);
+        break;
+      case OPE_DIFERENTE:
+        jj_consume_token(OPE_DIFERENTE);
+        break;
+      case OPE_AND:
+        jj_consume_token(OPE_AND);
+        break;
+      case OPE_OR:
+        jj_consume_token(OPE_OR);
+        break;
+      default:
+        jj_la1[17] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IDENTIFICADOR:
+        jj_consume_token(IDENTIFICADOR);
+        break;
+      case NUMERO:
+        jj_consume_token(NUMERO);
+        break;
+      default:
+        jj_la1[18] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
   }
 
   final public void Sino() throws ParseException {
@@ -188,17 +430,214 @@ public class compilador implements compiladorConstants {
   final public void Ciclo_While() throws ParseException {
     jj_consume_token(CICL_WHI);
     jj_consume_token(OTROS_PARENABRIR);
+    AceptaBooleanos();
     jj_consume_token(OTROS_PARENCIERRE);
     jj_consume_token(OTROS_LLAVEINI);
+    Sentencias();
     jj_consume_token(OTROS_LLAVEFIN);
   }
 
   final public void Ciclo_For() throws ParseException {
     jj_consume_token(CICL_FOR);
     jj_consume_token(OTROS_PARENABRIR);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case TIPDAT_INT:
+      jj_consume_token(TIPDAT_INT);
+      break;
+    default:
+      jj_la1[19] = jj_gen;
+      ;
+    }
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_ASIG);
+    jj_consume_token(NUMERO);
+    jj_consume_token(OTROS_DOSPUN);
+    AceptaBooleanos();
+    jj_consume_token(OTROS_DOSPUN);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IDENTIFICADOR:
+      jj_consume_token(IDENTIFICADOR);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPEARI_DECREMENTO:
+        jj_consume_token(OPEARI_DECREMENTO);
+        break;
+      case OPEARI_INCREMENTO:
+        jj_consume_token(OPEARI_INCREMENTO);
+        break;
+      default:
+        jj_la1[20] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      break;
+    default:
+      jj_la1[21] = jj_gen;
+      ;
+    }
     jj_consume_token(OTROS_PARENCIERRE);
     jj_consume_token(OTROS_LLAVEINI);
+    Sentencias();
     jj_consume_token(OTROS_LLAVEFIN);
+  }
+
+  final public void Imprimir() throws ParseException {
+    jj_consume_token(PR_SYS);
+    jj_consume_token(PR_OUT);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PR_PRT:
+      jj_consume_token(PR_PRT);
+      break;
+    case PR_PRTL:
+      jj_consume_token(PR_PRTL);
+      break;
+    default:
+      jj_la1[22] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(OTROS_PARENABRIR);
+    ImprimirNumeroTexto();
+    jj_consume_token(OTROS_PARENCIERRE);
+    jj_consume_token(OTROS_DOSPUN);
+  }
+
+  final public void ExpresionesAritmeticas() throws ParseException {
+    jj_consume_token(OTROS_PARENABRIR);
+    ValidaExpresionesAritmeticas();
+    jj_consume_token(OTROS_PARENCIERRE);
+  }
+
+  final public void ValidaExpresionesAritmeticas() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case OPEARI_SUMA:
+    case OPEARI_RESTA:
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPEARI_SUMA:
+        jj_consume_token(OPEARI_SUMA);
+        break;
+      case OPEARI_RESTA:
+        jj_consume_token(OPEARI_RESTA);
+        break;
+      default:
+        jj_la1[23] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      break;
+    default:
+      jj_la1[24] = jj_gen;
+      ;
+    }
+    label_7:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case NUMERO:
+        ;
+        break;
+      default:
+        jj_la1[25] = jj_gen;
+        break label_7;
+      }
+      jj_consume_token(NUMERO);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OPEARI_SUMA:
+      case OPEARI_RESTA:
+      case OPEARI_DIV:
+      case OPEARI_MODULAR:
+      case OPEARI_MULTI:
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case OPEARI_SUMA:
+          jj_consume_token(OPEARI_SUMA);
+          break;
+        case OPEARI_RESTA:
+          jj_consume_token(OPEARI_RESTA);
+          break;
+        case OPEARI_DIV:
+          jj_consume_token(OPEARI_DIV);
+          break;
+        case OPEARI_MULTI:
+          jj_consume_token(OPEARI_MULTI);
+          break;
+        case OPEARI_MODULAR:
+          jj_consume_token(OPEARI_MODULAR);
+          break;
+        default:
+          jj_la1[26] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+        break;
+      default:
+        jj_la1[27] = jj_gen;
+        ;
+      }
+    }
+  }
+
+  final public void ImprimirNumeroTexto() throws ParseException {
+    label_8:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OTROS_COMDOB:
+        jj_consume_token(OTROS_COMDOB);
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case IDENTIFICADOR:
+          jj_consume_token(IDENTIFICADOR);
+          break;
+        case NUMERO:
+          jj_consume_token(NUMERO);
+          break;
+        default:
+          jj_la1[28] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+        jj_consume_token(OTROS_COMDOB);
+        break;
+      case NUMERO:
+        jj_consume_token(NUMERO);
+        break;
+      default:
+        jj_la1[29] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OTROS_COMDOB:
+      case NUMERO:
+        ;
+        break;
+      default:
+        jj_la1[30] = jj_gen;
+        break label_8;
+      }
+    }
+  }
+
+  final public void ImprimirValores() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PrintInt:
+      jj_consume_token(PrintInt);
+      break;
+    case PrintFloat:
+      jj_consume_token(PrintFloat);
+      break;
+    case PrintChar:
+      jj_consume_token(PrintChar);
+      break;
+    case PrintBoolean:
+      jj_consume_token(PrintBoolean);
+      break;
+    case PrintString:
+      jj_consume_token(PrintString);
+      break;
+    default:
+      jj_la1[31] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
+    jj_consume_token(IDENTIFICADOR);
+    jj_consume_token(OTROS_DOSPUN);
   }
 
   private boolean jj_2_1(int xla) {
@@ -209,11 +648,11 @@ public class compilador implements compiladorConstants {
   }
 
   private boolean jj_3_1() {
-    if (jj_3R_3()) return true;
+    if (jj_3R_9()) return true;
     return false;
   }
 
-  private boolean jj_3R_3() {
+  private boolean jj_3R_9() {
     if (jj_scan_token(PR_PUB)) return true;
     if (jj_scan_token(PR_STC)) return true;
     return false;
@@ -230,7 +669,7 @@ public class compilador implements compiladorConstants {
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;
   private int jj_gen;
-  final private int[] jj_la1 = new int[6];
+  final private int[] jj_la1 = new int[32];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static private int[] jj_la1_2;
@@ -240,13 +679,13 @@ public class compilador implements compiladorConstants {
       jj_la1_init_2();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x100,0x0,0x0,0x0,0x2c000100,0x2c000100,};
+      jj_la1_0 = new int[] {0x100,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x2c000104,0x2c000104,0x10000000,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x30,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x3fc,0x40000000,0x37c,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x3d4,0xc4,0x0,0x110,0x0,0x0,0x37c,0x0,0x0,0x0,0x0,0x7f8000,0x0,0x600000,0x600000,0x0,0x7f8000,0x0,0x4,0x30000000,0x0,0x0,0x1800000,0x1800000,0x0,0xf800000,0xf800000,0x0,0x0,0x0,0x0,};
    }
    private static void jj_la1_init_2() {
-      jj_la1_2 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,};
+      jj_la1_2 = new int[] {0x0,0x0,0x0,0x400,0x0,0x400,0x400,0x0,0xf810,0xf810,0x0,0x30000,0x0,0x70000,0x0,0x0,0x30000,0x0,0x30000,0x0,0x0,0x20000,0x0,0x0,0x0,0x10000,0x0,0x0,0x30000,0x10080,0x10080,0xf800,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[1];
   private boolean jj_rescan = false;
@@ -263,7 +702,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -278,7 +717,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -289,7 +728,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -300,7 +739,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -310,7 +749,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -320,7 +759,7 @@ public class compilador implements compiladorConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 32; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -432,12 +871,12 @@ public class compilador implements compiladorConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[82];
+    boolean[] la1tokens = new boolean[89];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 32; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -452,7 +891,7 @@ public class compilador implements compiladorConstants {
         }
       }
     }
-    for (int i = 0; i < 82; i++) {
+    for (int i = 0; i < 89; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -1,0 +1,18 @@
+public class Prueba2 { 
+
+public int var = 01 , var2 = 101 , var3 = 69 :
+public float var4 = 8.1 , var5 = 2.1 :
+public String cadena1 = " hola ", cadena2 = " mundo " : 
+
+public static void main {
+
+  public Metodo ( ) {
+  String mensaje :
+  }
+    PrintInt var3 :
+    PrintInt var2 :
+    PrintInt var :
+    PrintFloat var4 :
+    PrintString cadena1 :
+  }
+}:

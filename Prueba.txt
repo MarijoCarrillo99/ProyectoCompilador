@@ -1,19 +1,25 @@
 public class Prueba { 
 
-public String id : 
-public int time = 9 :
+public int var = 0 , var2 = 4 , var3 = 11 :
+public float var4 = 8.1 , var5 = 2.1 :
+public String cadena1 = " hola ", cadena2 = " mundo " : 
 
 public static void main {
 
-public Metodo() {
- String mensaje:
+public Metodo ( ) {
+ String mensaje :
 }
-
-   If() { 
-        else(){}
-      }
+ 
+System out print ( " Suma " ) :
+   if ( x == y && 4 < 15 || bandera == 1 ) {
+       System out print ( " Suma " ) :
+   
+   while ( x == y && 4 < 15 || bandera == 1 ) { for ( int enter = 8 : x < 5 : enter ++ ) { ( - 15 + 32 / 5 * 2 ) } }  
+  
+      }else ( ) { }
   }
-}:
+  
+} :
 
 
 

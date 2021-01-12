@@ -109,6 +109,7 @@ TOKEN:
 | <OPE_DIFERENTE : "!=">
 | <OPE_DOBLEIGUAL : "==">
 | <OPE_AND : "&&">
+| <OPE_OR : "||">
 }
 
 
@@ -140,8 +141,17 @@ TOKEN:
 | <OTROS_COMDOB : "\"">
 | <OTROS_PUNCOMA : ";">
 | <OTROS_DOSPUN : ":">
+| <OTROS_COMA : ",">
 }
 
+TOKEN:
+{
+<PrintInt : "PrintInt">
+| <PrintString : "PrintString">
+| <PrintBoolean : "PrintBoolean">
+| <PrintChar : "PrintChar">
+| <PrintFloat : "PrintFloat">
+}
 
 //EXPRESIONES REGULARES
 TOKEN: 
@@ -180,9 +190,27 @@ void Estructura():
 void VariablesGlobales():
 {}
 {
-  <PR_PUB>(<TIPDAT_STR>|<TIPDAT_CHAR>|<TIPDAT_INT>|<TIPDAT_DOU>|<TIPDAT_FLO>|<TIPDAT_LONG>|<TIPDAT_BYTE>|<TIPDAT_BOOLE>)<IDENTIFICADOR>(<OTROS_ASIG><NUMERO>)*<OTROS_DOSPUN>Body()
+  <PR_PUB>(DeclaraEnteros()| DeclaraFlotantes() | DeclaraCadenas())Body()
 }
 
+void DeclaraEnteros():
+{}
+{
+  (<TIPDAT_INT>|<TIPDAT_LONG>|<TIPDAT_BYTE>)<IDENTIFICADOR><OTROS_ASIG><NUMERO>(<OTROS_COMA><IDENTIFICADOR><OTROS_ASIG><NUMERO>)*<OTROS_DOSPUN>
+} 
+
+void DeclaraFlotantes():
+{}
+{
+  (<TIPDAT_FLO>|<TIPDAT_BOOLE>)<IDENTIFICADOR><OTROS_ASIG><NUMBER>(<OTROS_COMA><IDENTIFICADOR><OTROS_ASIG><NUMBER>)*<OTROS_DOSPUN>
+}
+
+void DeclaraCadenas():
+{}
+{
+  <TIPDAT_STR><IDENTIFICADOR><OTROS_ASIG><OTROS_COMDOB><IDENTIFICADOR><OTROS_COMDOB>(<OTROS_COMA><IDENTIFICADOR><OTROS_ASIG><OTROS_COMDOB><IDENTIFICADOR><OTROS_COMDOB>)*<OTROS_DOSPUN>
+}
+	
 void EstructuraMetodo():
 {}
 {
@@ -198,14 +226,21 @@ void LocalVariables():
 void Sentencias():
 {}
 {
-  (SentenciaIf() | Ciclo_While() | Ciclo_For() | EstructuraMetodo())* 
+  (SentenciaIf() | Imprimir() | Ciclo_While() | Ciclo_For() | EstructuraMetodo() | ExpresionesAritmeticas() | ImprimirValores())* 
 }
 
 void SentenciaIf():
 {}
 {
-  <CONDI_IF><OTROS_PARENABRIR><OTROS_PARENCIERRE><OTROS_LLAVEINI>(Sino())<OTROS_LLAVEFIN>
+  <CONDI_IF><OTROS_PARENABRIR>AceptaBooleanos()<OTROS_PARENCIERRE><OTROS_LLAVEINI>Sentencias()<OTROS_LLAVEFIN>(Sino())*
 }
+
+void AceptaBooleanos():
+{}
+{
+	(<IDENTIFICADOR>|<NUMERO>)(<OPE_MENOR>|<OPE_MAYOR>|<OPE_DOBLEIGUAL>|<OPE_MENORIGUAL>|<OPE_MAYORIGUAL>|<OPE_DIFERENTE>|<OPE_AND>|<OPE_OR>)(<IDENTIFICADOR>|<NUMERO>|<NUMBER>)((<OPE_AND>|<OPE_OR>)((<IDENTIFICADOR>|<NUMERO>)(<OPE_MENOR>|<OPE_MAYOR>|<OPE_DOBLEIGUAL>|<OPE_MENORIGUAL>|<OPE_MAYORIGUAL>|<OPE_DIFERENTE>|<OPE_AND>|<OPE_OR>)(<IDENTIFICADOR>|<NUMERO>)))*
+}
+
 
 void Sino():
 {}
@@ -216,15 +251,45 @@ void Sino():
 void Ciclo_While():
 {}
 {
-  <CICL_WHI><OTROS_PARENABRIR><OTROS_PARENCIERRE><OTROS_LLAVEINI><OTROS_LLAVEFIN>
+  <CICL_WHI><OTROS_PARENABRIR>AceptaBooleanos()<OTROS_PARENCIERRE><OTROS_LLAVEINI>Sentencias()<OTROS_LLAVEFIN>
 }		
 	
 void Ciclo_For():
 {}
 {
-  <CICL_FOR><OTROS_PARENABRIR><OTROS_PARENCIERRE><OTROS_LLAVEINI><OTROS_LLAVEFIN>
+  <CICL_FOR><OTROS_PARENABRIR>((<TIPDAT_INT>)?<IDENTIFICADOR><OTROS_ASIG><NUMERO><OTROS_DOSPUN>AceptaBooleanos()<OTROS_DOSPUN>(<IDENTIFICADOR>(<OPEARI_DECREMENTO>|<OPEARI_INCREMENTO>))?)
+<OTROS_PARENCIERRE><OTROS_LLAVEINI>Sentencias()<OTROS_LLAVEFIN>
 }
 
+void Imprimir():
+{}
+{
+  <PR_SYS><PR_OUT>(<PR_PRT>|<PR_PRTL>)<OTROS_PARENABRIR>ImprimirNumeroTexto()<OTROS_PARENCIERRE><OTROS_DOSPUN>
+}
+void ExpresionesAritmeticas():
+{}
+{
+  <OTROS_PARENABRIR>ValidaExpresionesAritmeticas()<OTROS_PARENCIERRE>
+}
+
+void ValidaExpresionesAritmeticas():
+{}
+{
+  (<OPEARI_SUMA>|<OPEARI_RESTA>)?(<NUMERO>(<OPEARI_SUMA>|<OPEARI_RESTA>|<OPEARI_DIV>|<OPEARI_MULTI>|<OPEARI_MODULAR>)?)*
+}
+
+void ImprimirNumeroTexto():
+{}
+{
+	(<OTROS_COMDOB>(<IDENTIFICADOR>|<NUMERO>)<OTROS_COMDOB>
+	| <NUMERO>)+ 
+}
+
+void ImprimirValores():
+{}
+{
+   (<PrintInt>|<PrintFloat>|<PrintChar>|<PrintBoolean>|<PrintString>)<IDENTIFICADOR><OTROS_DOSPUN>
+}
 
 
 

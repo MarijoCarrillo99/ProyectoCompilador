@@ -1,12 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * INSTITUTO TECNOLÓGICO SUPERIOR DE APATZINGÁN
+ *          ANALIZADOR SINTÁCTICO
  */
 
 /*
-@author Tema theChulis
+@authors Team LasChulis
+MARÍA JOSÉ CARRILLO NÚÑEZ
+OCIELA CELESTE CAUSOR SANTAMARÍA 
+VERÓNICA GUADALUPE MARTÍNEZ MORA
+JESSICA IBET PÉREZ CORTÉZ
 */
+
 package proyectocompilador;
 
 import java.io.File;
@@ -50,6 +54,7 @@ public class Ventaniux extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         SalidaCodigo = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +62,7 @@ public class Ventaniux extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("VENTANIUX \"LAS CHULIS\"");
 
@@ -110,13 +115,19 @@ public class Ventaniux extends javax.swing.JFrame {
         txtArchivoSeleccionado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtArchivoSeleccionado.setText("...");
 
+        SalidaCodigo.setEditable(false);
         SalidaCodigo.setColumns(20);
         SalidaCodigo.setRows(5);
         jScrollPane1.setViewportView(SalidaCodigo);
 
         jLabel4.setFont(new java.awt.Font("Lucida Bright", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("CÓDIGO EJECUTADO:");
+        jLabel4.setText("CÓDIGO:");
+
+        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Lucida Bright", 1, 30)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("ANALIZADOR SINTÁCTICO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,60 +136,67 @@ public class Ventaniux extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(RunPrueba)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(RunPrueba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 114, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(245, 245, 245))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(abrir)
-                                .addGap(318, 318, 318))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtArchivoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(280, 280, 280))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(352, 352, 352))))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3))))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(268, 268, 268)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtArchivoSeleccionado, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(252, 252, 252)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(318, 318, 318)
+                        .addComponent(abrir)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(364, 364, 364)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(17, 17, 17)
                 .addComponent(abrir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtArchivoSeleccionado)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1))
-                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addComponent(RunPrueba)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -189,8 +207,8 @@ public class Ventaniux extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +246,7 @@ public class Ventaniux extends javax.swing.JFrame {
                SalidaConsola.setText(SalidaConsola.getText() + "\n" + e.getMessage());
            } 
            catch (NullPointerException e) {
-               SalidaConsola.setText(SalidaConsola.getText() + "\n" +  "No se seleccionó el archivo");
+               SalidaConsola.setText(SalidaConsola.getText() + "\n" +  "No se seleccionó el archivo.");
            } 
            catch (Exception e) {
                SalidaConsola.setText(SalidaConsola.getText() + "\n" + e.getMessage());
@@ -248,6 +266,8 @@ public class Ventaniux extends javax.swing.JFrame {
                     i++;
                 }
                 new ProyectoCompilador().compilar(SalidaConsola, rutaArchivo);
+                new Analizar(SalidaConsola, SalidaCodig, "");
+               
     }//GEN-LAST:event_RunPruebaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -261,16 +281,17 @@ public class Ventaniux extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void EjecutaSalidaTokens(String Token){
-        Pattern PReservada = Pattern.compile("BEGIN|StartMain|import|package|class|static|void|main|return|new|null|extense|throw|throws" +
+        Pattern PReservada = Pattern.compile("import|package|class|static|void|main|return|new|null|extense|throw|throws" +
 			"|break|continue|default|implements|super|this|super|abstract|interface|synchronized");
-		Pattern PTipoAcceso=Pattern.compile("public|private|protected|finally|final|Menu");
+		Pattern PTipoAcceso=Pattern.compile("public|private|protected|finally");
 		Pattern TCiclos =Pattern.compile("for|do|while|foreach");
 		Pattern TCondiciones = Pattern.compile("if|else|ifelse|switch|case");
 		Pattern TOperadoresLogicos = Pattern.compile(">|<|>=|<=|!=|==|&&");
 		Pattern	TOperadorAritmeticos = Pattern.compile("\\+|\\-|\\/|\\%|\\*|\\++|\\--|\\^");
-		Pattern TiposDatos = Pattern.compile("int|short|long|byte|double|float|String|chart|BigInteger|boolean");
+		Pattern TiposDatos = Pattern.compile("int|short|long|byte|double|float|String|chart|boolean");
 		Pattern TBoleanos = Pattern.compile("true|false");
 		Pattern TErrorsillos = Pattern.compile("try|catch");
+                Pattern Numeritos = Pattern.compile("[0-9]* . [0-9]*");
 		
 		Pattern LLaveIni = Pattern.compile("\\{");
 		Pattern LLaveFin = Pattern.compile("\\}");
@@ -317,7 +338,7 @@ public class Ventaniux extends javax.swing.JFrame {
 		Matcher MaNumber = TNumber.matcher(Token);
 		Matcher MaComillas = Comillas.matcher(Token);
 		Matcher MaComilla = Comilla.matcher(Token);
-		
+		Matcher MaNumeritos = Numeritos.matcher(Token);
 		
                 if(MatPR.find()){
                     SalidaTokens.setText(SalidaTokens.getText().toString() + " Palabra reservada " +  " - " + MatPR.group().toString() + "\n");
@@ -395,7 +416,13 @@ public class Ventaniux extends javax.swing.JFrame {
                 }
                 
 		else if(MaNumber.find()){
-                        SalidaTokens.setText(SalidaTokens.getText().toString() + " Número " + " - " + MaNumber.group().toString() + "\n");
+                        SalidaTokens.setText(SalidaTokens.getText().toString() + " Número entero " + " - " + MaNumber.group().toString() + "\n");
+                }
+                else if(MaNumeritos.find()){
+                        SalidaTokens.setText(SalidaTokens.getText().toString() + " Números flotantes" + " - " + MaNumeritos.group().toString() + "\n");
+                }
+                else if(MaComillas.find()){
+                        SalidaTokens.setText(SalidaTokens.getText().toString() + "Comillas" + " - " + MaComillas.group().toString() + "\n");
                 }
     }
     public static void main(String args[]) {
@@ -441,6 +468,7 @@ public class Ventaniux extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

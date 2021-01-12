@@ -1,10 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * INSTITUTO TECNOLÓGICO SUPERIOR DE APATZINGÁN
+ *          ANALIZADOR SINTÁCTICO
  */
+
 /*
-@author Team theChulis
+@authors Team LasChulis
+MARÍA JOSÉ CARRILLO NÚÑEZ
+OCIELA CELESTE CAUSOR SANTAMARÍA 
+VERÓNICA GUADALUPE MARTÍNEZ MORA
+JESSICA IBET PÉREZ CORTÉZ
 */
 package proyectocompilador;
 import comp.compilador;
@@ -23,7 +27,7 @@ public class ProyectoCompilador {
          try {
             compilador sintaxis = new compilador(new BufferedReader(new FileReader(ruta)));
             sintaxis.Principal();
-            salida.setText(salida.getText() + " Compilación con éxito " + "\n");
+            salida.setText(salida.getText() + " Compilación con éxito. " + "\n");
         } catch (ParseException e) {
             salida.setText(salida.getText() + e.getMessage() + "\n");
         } catch (FileNotFoundException e) {

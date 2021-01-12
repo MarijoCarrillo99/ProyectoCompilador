@@ -117,51 +117,65 @@ public interface compiladorConstants {
   /** RegularExpression Id. */
   int OPE_AND = 53;
   /** RegularExpression Id. */
-  int OPEARI_SUMA = 54;
+  int OPE_OR = 54;
   /** RegularExpression Id. */
-  int OPEARI_RESTA = 55;
+  int OPEARI_SUMA = 55;
   /** RegularExpression Id. */
-  int OPEARI_DIV = 56;
+  int OPEARI_RESTA = 56;
   /** RegularExpression Id. */
-  int OPEARI_MODULAR = 57;
+  int OPEARI_DIV = 57;
   /** RegularExpression Id. */
-  int OPEARI_MULTI = 58;
+  int OPEARI_MODULAR = 58;
   /** RegularExpression Id. */
-  int OPEARI_INCREMENTO = 59;
+  int OPEARI_MULTI = 59;
   /** RegularExpression Id. */
-  int OPEARI_DECREMENTO = 60;
+  int OPEARI_INCREMENTO = 60;
   /** RegularExpression Id. */
-  int OPEARI_POTENCIA = 61;
+  int OPEARI_DECREMENTO = 61;
   /** RegularExpression Id. */
-  int OTROS_ASIG = 62;
+  int OPEARI_POTENCIA = 62;
   /** RegularExpression Id. */
-  int OTROS_LLAVEINI = 63;
+  int OTROS_ASIG = 63;
   /** RegularExpression Id. */
-  int OTROS_LLAVEFIN = 64;
+  int OTROS_LLAVEINI = 64;
   /** RegularExpression Id. */
-  int OTROS_CORCHABRIR = 65;
+  int OTROS_LLAVEFIN = 65;
   /** RegularExpression Id. */
-  int OTROS_CORCHCIERRE = 66;
+  int OTROS_CORCHABRIR = 66;
   /** RegularExpression Id. */
-  int OTROS_PARENABRIR = 67;
+  int OTROS_CORCHCIERRE = 67;
   /** RegularExpression Id. */
-  int OTROS_PARENCIERRE = 68;
+  int OTROS_PARENABRIR = 68;
   /** RegularExpression Id. */
-  int OTROS_COMSIMPLE = 69;
+  int OTROS_PARENCIERRE = 69;
   /** RegularExpression Id. */
-  int OTROS_COMDOB = 70;
+  int OTROS_COMSIMPLE = 70;
   /** RegularExpression Id. */
-  int OTROS_PUNCOMA = 71;
+  int OTROS_COMDOB = 71;
   /** RegularExpression Id. */
-  int OTROS_DOSPUN = 72;
+  int OTROS_PUNCOMA = 72;
   /** RegularExpression Id. */
-  int NUMERO = 73;
+  int OTROS_DOSPUN = 73;
   /** RegularExpression Id. */
-  int IDENTIFICADOR = 74;
+  int OTROS_COMA = 74;
   /** RegularExpression Id. */
-  int NUMBER = 75;
+  int PrintInt = 75;
   /** RegularExpression Id. */
-  int CHARAC = 76;
+  int PrintString = 76;
+  /** RegularExpression Id. */
+  int PrintBoolean = 77;
+  /** RegularExpression Id. */
+  int PrintChar = 78;
+  /** RegularExpression Id. */
+  int PrintFloat = 79;
+  /** RegularExpression Id. */
+  int NUMERO = 80;
+  /** RegularExpression Id. */
+  int IDENTIFICADOR = 81;
+  /** RegularExpression Id. */
+  int NUMBER = 82;
+  /** RegularExpression Id. */
+  int CHARAC = 83;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -222,6 +236,7 @@ public interface compiladorConstants {
     "\"!=\"",
     "\"==\"",
     "\"&&\"",
+    "\"||\"",
     "\"+\"",
     "\"-\"",
     "\"/\"",
@@ -241,6 +256,12 @@ public interface compiladorConstants {
     "\"\\\"\"",
     "\";\"",
     "\":\"",
+    "\",\"",
+    "\"PrintInt\"",
+    "\"PrintString\"",
+    "\"PrintBoolean\"",
+    "\"PrintChar\"",
+    "\"PrintFloat\"",
     "<NUMERO>",
     "<IDENTIFICADOR>",
     "<NUMBER>",
